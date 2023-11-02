@@ -13,6 +13,9 @@ class Food(models.Model):
     name=models.CharField(max_length=255)
     price=models.FloatField()
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.name
 
 class Table(models.Model):
     number=models.IntegerField()
@@ -56,4 +59,5 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,on_delete=models.PROTECT)
+    food=models.ForeignKey(Food,on_delete=models.PROTECT)
     status=models.BooleanField(default=False)
