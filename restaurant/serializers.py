@@ -14,15 +14,24 @@ class TableSerializer(serializers.ModelSerializer):
         model=Table
         fields=['id','number','is_occupied']
         
-    def create(self,validated_data):
-        return Table.objects.create(
-
-            number=validated_data.get('number'),
-            is_occupied=validated_data.get('is_occupied')
-            
-        )
-    def update(self,instance:Table,validated_data):
-        instance.number = validated_data.get('number', instance.number)
-        instance.is_occupied = validated_data.get('is_occupied', instance.is_occupied)
-        instance.save()
-        return instance
+class FoodSerializer(serializers.ModelSerializer):
+    
+    category=serializers.StringRelatedField()
+    category_id=serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source="category"
+    )
+    taxed_price=serializers.SerializerMethodField()
+    class Meta:
+        model=Food
+        fields=[
+            "id",
+            "name",
+            "price",
+            "taxed_price",
+            "category",
+            "category_id",
+        ]
+    
+    def get_taxed_price(self,food:Food):
+        return food.price+(food.price*0.13)
