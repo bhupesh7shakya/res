@@ -44,6 +44,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display=(
         "user",
         "status",
+        "table",
         "payment_status",
     )
     # autocomplete_fields=('',)

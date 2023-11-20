@@ -45,7 +45,7 @@ class Order(models.Model):
     
 
     user=models.ForeignKey(User,on_delete=models.PROTECT)
-    table11=models.ForeignKey(Table,on_delete=models.CASCADE)
+    table=models.ForeignKey(Table,on_delete=models.CASCADE)
     status=models.CharField(
         max_length=1,
         choices=STATUS_CHOICES,
