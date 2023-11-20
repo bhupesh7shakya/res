@@ -21,4 +21,5 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('admin/', admin.site.urls),
     path('api/v1/',include('restaurant.urls')),
+    path('api/v1/auth/',include('core.urls')),
 ]

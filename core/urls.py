@@ -3,4 +3,6 @@ from .views import *
 from rest_framework.routers import DefaultRouter
 
 
-urlpatterns=[]
+urlpatterns=[
+    path('login/',UserLogin.as_view())
+]
