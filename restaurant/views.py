@@ -8,20 +8,24 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view ,APIView
 from .filters import *
+from .permissions import IsAuthenticatedOrReadOnly
 
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset=Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes=(IsAuthenticated,)
+    permission_classes=(IsAuthenticatedOrReadOnly,)
 
+    
+    
 # views.py
 
 
 class TableViewSet(viewsets.ModelViewSet):
     queryset=Table.objects.all()
     serializer_class=TableSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
 
 class FoodViewSet(viewsets.ModelViewSet):
     queryset=Food.objects.select_related('category').all()

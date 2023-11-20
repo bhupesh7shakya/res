@@ -4,7 +4,7 @@ class FoodFilter(filter.FilterSet):
     class Meta:
         model=Food
         fields={
-            'name':['exact','icontains'],
+            'name':['icontains'],
             'price':['gte','lte'],
             'category':['exact',]
         }
