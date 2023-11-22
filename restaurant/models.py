@@ -36,7 +36,7 @@ class Order(models.Model):
     
     
     PAYMENT_STATUS_PEDNING_CHOICE='P'
-    PAYMENT_STATUS_COMPLETED_CHOICE='P'
+    PAYMENT_STATUS_COMPLETED_CHOICE='C'
     
     PAYMENT_STATUS_CHOICES=[
         (PAYMENT_STATUS_COMPLETED_CHOICE,'Completed'),
@@ -59,6 +59,6 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.PROTECT)
+    order=models.ForeignKey(Order,on_delete=models.PROTECT,related_name='items')
     food=models.ForeignKey(Food,on_delete=models.PROTECT)
     status=models.BooleanField(default=False)

@@ -33,3 +33,20 @@ class FoodViewSet(viewsets.ModelViewSet):
     pagination_class=PageNumberPagination
     # filter_backends=(DjangoFilterBackend,)
     filterset_class=FoodFilter
+    
+    
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset=Order.objects.prefetch_related('items').all()
+    serializer_class=OrderSerializer
+    permission_classes=(IsAuthenticated,)
+    
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return SimpleOrderSerialzer
+        return OrderSerializer
+    
+    
+    def get_queryset(self):
+        # user=self.request.user
+        user=self.request.user
+        return  Order.objects.prefetch_related('items').filter(user=user,status=Order.PENDING_CHOICES)
